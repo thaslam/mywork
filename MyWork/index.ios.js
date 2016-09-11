@@ -12,10 +12,20 @@ import {
   View
 } from 'react-native';
 
+import Login from './Login';
+
+//var Login = require('./Login');
+
 class MyWork extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <Login />
+    );
+  }
+}
+
+/*
+<View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
@@ -27,9 +37,7 @@ class MyWork extends Component {
           Cmd+D or shake for dev menu
         </Text>
       </View>
-    );
-  }
-}
+    */
 
 const styles = StyleSheet.create({
   container: {
