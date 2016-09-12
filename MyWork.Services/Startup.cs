@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyWork.Services;
 
 namespace MyWork.Services
 {
@@ -29,6 +30,10 @@ namespace MyWork.Services
         {
             // Add framework services.
             services.AddMvc();
+            
+
+            // DI, add custom services
+            services.AddTransient<IWorkService, WorkService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
