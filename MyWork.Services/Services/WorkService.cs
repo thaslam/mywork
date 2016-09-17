@@ -12,7 +12,7 @@ namespace MyWork.Services
         try
         {
             var username = "haslat1@sigi.us.selective.com";
-            var password = "password";
+            var password = "pgbuttsw6qx76vm5d4v6lw5gedoxkbiieuzmnsgkr2455mte4rda";
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(
@@ -24,7 +24,7 @@ namespace MyWork.Services
                             string.Format("{0}:{1}", username, password))));
 
                 using (HttpResponseMessage response = client.GetAsync(
-                            "https://music-pilot.visualstudio.com/DefaultCollection/DefaultCollection/_apis/projects/api-version=2.0").Result)
+                            "https://music-pilot.visualstudio.com/DefaultCollection/_apis/projects/api-version=2.0").Result)
                 {
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();

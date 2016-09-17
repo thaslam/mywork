@@ -4,14 +4,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyWork.Services;
 
-namespace MyWork.Api
+namespace MyWork.Services.Controllers
 {
-  [Route("api")]
-  public class MyWorkApi: Controller
+  [Route("api/v1")]
+  public class MyWorkController: Controller
   {
-    public IWorkService MyWorkService { get; set; }
+    public MyWorkController(IWorkService workService)
+    {
+        this.MyWorkService = workService;
+    }
+    private IWorkService MyWorkService { get; set; }
 
-    [HttpGet("")]
+    [HttpGet]
     public async Task<string> Get()
     {
         if (MyWorkService == null) return null;
