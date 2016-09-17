@@ -25,7 +25,7 @@ class Login extends Component {
 	render() {
 		return (
 			<View style={Styles.container}>
-				<Image style={Styles.logo} source={require('image!logo')} />
+				<Image style={Styles.logo} source={require('image!selectivelogo')} />
 				<Text style={Styles.header}>Your Work</Text>
 				<TextInput style={Styles.input} placeholder="Username" />
 				<TextInput style={Styles.input} placeholder="Token Password" />
