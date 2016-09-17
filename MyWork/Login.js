@@ -29,12 +29,15 @@ class Login extends Component {
 				<Text style={Styles.header}>Your Work</Text>
 				<TextInput style={Styles.input} placeholder="Username" />
 				<TextInput style={Styles.input} placeholder="Token Password" />
-				<TouchableHighlight style={Styles.button}>
+				<TouchableHighlight onPress={this.onLoginPressed.bind(this)} style={Styles.button}>
 					<Text style={Styles.buttonText}>Log In</Text>
 				</TouchableHighlight>
 		</View>
 		);
 	}
+	onLoginPressed() {
+    alert('Test');
+  }
 };
 
 export default Login;
