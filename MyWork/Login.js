@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight
 } from 'react-native';
+import Styles from './Styles';
 
 /*
 reference, eventually will need to build http requests
@@ -23,37 +24,18 @@ class Login extends Component {
 	}
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text style={styles.header}>Hello World</Text>
-				<TextInput style={styles.input} placeholder="Username" />
-				<TextInput style={styles.input} placeholder="Token Password" />
-			</View>
+			<View style={Styles.container}>
+				<Image style={Styles.logo} source={require('image!logo')} />
+				<Text style={Styles.header}>Your Work</Text>
+				<TextInput style={Styles.input} placeholder="Username" />
+				<TextInput style={Styles.input} placeholder="Token Password" />
+				<TouchableHighlight style={Styles.button}>
+					<Text style={Styles.buttonText}>Log In</Text>
+				</TouchableHighlight>
+		</View>
 		);
 	}
 };
-
-var styles = StyleSheet.create({
-	container: {
-		backgroundColor: '#F5FCFF',
-		flex: 1,
-		paddingTop: 40,
-		alignItems: 'center',
-		padding: 4
-	},
-	logo: {
-		width: 66,
-		height: 55
-	},
-	header: {
-		fontSize: 30,
-		marginTop: 10
-	},
-	input: {
-		height: 50,
-		marginTop: 10,
-		padding: 4
-	}
-});
 
 export default Login;
 //module.exports = Login;

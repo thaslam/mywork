@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace MyWork.Services
 {
-  interface IWorkService 
+  public interface IWorkService 
   {
     Task<string> GetProjects();
     string GetTasks();

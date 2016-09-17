@@ -24,14 +24,13 @@ namespace MyWork.Services
                             string.Format("{0}:{1}", username, password))));
 
                 using (HttpResponseMessage response = client.GetAsync(
-                            "https://music-pilot.visualstudio.com/DefaultCollection/_apis/build/builds").Result)
+                            "https://music-pilot.visualstudio.com/DefaultCollection/DefaultCollection/_apis/projects/api-version=2.0").Result)
                 {
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
                     return responseBody;
                     //Console.WriteLine(responseBody);
                 }
-                return null;
             }
         }
         catch (Exception ex)
