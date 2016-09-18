@@ -5,8 +5,8 @@ namespace MyWork.Services
   public interface IWorkService 
   {
     Task<string> GetProjects();
-    string GetTasks();
-    string MarkTaskComplete();
-    string SetTaskRemainingHours();
+    Task<string> GetTasks(string projectName);
+    Task<string> MarkTaskComplete();
+    Task<string> SetTaskRemainingHours();
   }
 }

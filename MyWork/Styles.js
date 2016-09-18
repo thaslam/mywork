@@ -1,3 +1,5 @@
+'use strict';
+
 import React, { StyleSheet } from 'react-native';
 
 // TODO: I wonder if there is a way to extend StyleSheet class instead,

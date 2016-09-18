@@ -23,10 +23,13 @@ namespace MyWork.Services.Controllers
         return await MyWorkService.GetProjects();
     } 
 
-    [HttpGet("{id}")]
-    public async Task<string> Get(int id)
+    [HttpGet("{projectName}")]
+    public async Task<string> Get(string projectName)
     {
-      return "Task Test";
+        if (MyWorkService == null) return null;
+        if (string.IsNullOrWhiteSpace(projectName)) return null;
+
+        return await MyWorkService.GetTasks(projectName);
     }
   }
 

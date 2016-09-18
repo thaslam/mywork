@@ -14,6 +14,7 @@ class Projects extends Component {
   constructor(props) {
     super(props);
   }
+  get text() { return "Tom" }
   render() {
     return (
       <View style={Styles.container}>

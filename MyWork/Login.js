@@ -13,6 +13,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import Styles from './Styles';
+import Data from './DataService';
 
 /*
 reference, eventually will need to build http requests
@@ -36,7 +37,7 @@ class Login extends Component {
 		);
 	}
 	onLoginPressed() {
-    alert('Test');
+    alert(Data);
   }
 };
 
