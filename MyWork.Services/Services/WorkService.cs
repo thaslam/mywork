@@ -41,7 +41,7 @@ namespace MyWork.Services
         {
             // TODO: refactor the hardcoded username and token out
             var username = "haslat1@sigi.us.selective.com";
-            var password = "pgbuttsw6qx76vm5d4v6lw5gedoxkbiieuzmnsgkr2455mte4rda";
+            var password = "";
             
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Add(
