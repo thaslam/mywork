@@ -37,7 +37,7 @@ class Login extends Component {
 		);
 	}
 	onLoginPressed() {
-    alert(Data);
+    Data.getProjects();
   }
 };
 

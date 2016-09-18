@@ -7,10 +7,18 @@ class DataService {
   }
   getProjects() {
     // TODO set state.
-    fetch('http://localhost:5000/api/v1').then((data) => {
+    fetch('http://localhost:5000/api/v1').then((response) => {
+      return response.json();
+    }).then((results) => {
+      console.log("getProjects()\n" + results);
+    });
+  }
+  getTasks(projectName) {
+    // TODO set state.
+    fetch('http://localhost:5000/api/v1/' + projectName).then((data) => {
       return data.json();
     });
   }
 }
 
-export default DataService;
+export default (new DataService());

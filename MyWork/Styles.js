@@ -28,9 +28,13 @@ var Styles = StyleSheet.create({
 	button: {
 		height: 50,
 		backgroundColor: '#004a8b',
-		alignSelf: 'stretch',
+		alignSelf: 'center',
 		marginTop: 10,
-		justifyContent: 'center'
+		justifyContent: 'center',
+    borderRadius: 3,
+    paddingLeft: 40,
+    paddingRight: 40,
+    bottom: 0
 	},
 	buttonText: {
 		fontSize: 22,

@@ -22,6 +22,7 @@ namespace MyWork.Services
                 .UseConfiguration(config)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseUrls("http://localhost:5000")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
