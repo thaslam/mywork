@@ -19,7 +19,7 @@ namespace MyWork.Services.Controllers
     public async Task<string> Get()
     {
         if (MyWorkService == null) return null;
-
+        
         return await MyWorkService.GetProjects();
     } 
 

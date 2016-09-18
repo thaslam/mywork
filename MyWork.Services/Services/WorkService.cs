@@ -1,7 +1,9 @@
 using System;
 using System.Net.Http;
+using System.Text;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MyWork.Services
 {
@@ -24,9 +26,28 @@ namespace MyWork.Services
                 "order by [Microsoft.VSTS.Common.Priority] asc, [System.CreatedDate] desc\"}", 
                 System.Text.Encoding.UTF8, "application/json");
 
-            return await this.PostHttp(string.Format("{0}/{1}/_apis/wit/wiql?api-version={2}", URI_PREFIX, projectName, API_VERSION), content);
+            var result = await this.PostHttp(string.Format("{0}/{1}/_apis/wit/wiql?api-version={2}", URI_PREFIX, projectName, API_VERSION), content);
+            WorkItemResponse response = JsonConvert.DeserializeObject<WorkItemResponse>(result, this.CreateJsonSettings());
+            
+            return await this.GetTasksDetails(response);
         }
 
+        public async Task<string> GetTasksDetails(WorkItemResponse response)
+        {
+            var count = 1;
+            var ids = new StringBuilder("ids=");
+            foreach (var item in response.WorkItems)
+            {
+                ids.Append(item.Id);
+                if (count > 200) break;
+                if (count < response.WorkItems.Count)
+                    ids.Append(',');
+
+                count++;
+            }
+
+            return await this.GetHttp(string.Format("{0}/_apis/wit/workitems?{1}&api-version={2}", URI_PREFIX, ids.ToString(), API_VERSION));
+        }
         public async Task<string> MarkTaskComplete()
         {
             throw new NotImplementedException();
@@ -74,7 +95,7 @@ namespace MyWork.Services
                 return string.Format("{0}{1}", uri, ex.ToString());
             }
         }
-         private async Task<string> PostHttp(string uri, HttpContent content) 
+        private async Task<string> PostHttp(string uri, HttpContent content) 
         {
             try
             {
@@ -94,6 +115,13 @@ namespace MyWork.Services
                 // TODO: do something with this error
                 return string.Format("{0}{1}", uri, ex.ToString());
             }
+        }
+
+        private JsonSerializerSettings CreateJsonSettings()
+        {
+            var settings = new JsonSerializerSettings();
+            settings.MissingMemberHandling = MissingMemberHandling.Ignore;
+            return settings;
         }
     }
 }

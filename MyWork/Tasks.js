@@ -28,7 +28,7 @@ class Tasks extends Component {
   fetchTasks() {
     // TODO: Wire to selected project
     Data.getTasks("Agency Dashboard", (data) => {
-        this.setState({dataSource: this.state.dataSource.cloneWithRows(data.workItems)});
+        this.setState({dataSource: this.state.dataSource.cloneWithRows(data.value)});
     });
   }
   render() {
@@ -48,7 +48,7 @@ class Tasks extends Component {
     return (
       <View>
         <View style={Styles.row}>
-          <Text style={Styles.rowText}>{rowData.id}</Text>
+          <Text style={Styles.rowText}>{rowData.fields["System.Title"]}</Text>
         </View>
       </View>
     );
