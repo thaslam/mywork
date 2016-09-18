@@ -16,6 +16,11 @@ namespace MyWork.Services
         {
             return await this.GetHttp(string.Format("{0}/_apis/projects?api-version={1}", URI_PREFIX, API_VERSION));
         }
+        
+        public async Task<string> GetTasks()
+        {
+            return await this.GetTasks(null);
+        }
 
         public async Task<string> GetTasks(string projectName)
         {

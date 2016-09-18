@@ -8,18 +8,16 @@ var Styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#F5FCFF',
 		flex: 1,
-		paddingTop: 40,
+		paddingTop: 20,
 		alignItems: 'center',
 		padding: 4
 	},
 	logo: {
-    width: 100,
-    height: 50
+    width: 100
 	},
 	header: {
-		paddingTop: 16,
-		fontSize: 24,
-		marginTop: 10,
+		paddingTop: 0,
+		fontSize: 16,
 		color: '#004a8b'
 	},
 	input: {
@@ -47,12 +45,55 @@ var Styles = StyleSheet.create({
     alignSelf: 'stretch',
     paddingTop: 20
   },
+  taskList: {
+    alignSelf: 'stretch',
+    paddingTop: 0
+  },
   row: {
     padding: 10,
     alignSelf: 'center',
   },
+  taskRow: {
+    padding: 10,
+    flexDirection: 'row'
+  },
+  taskSection: {
+    flexDirection: 'row',
+    backgroundColor: '#dbeaf9',
+    padding: 5
+  },
+  sectionRowText: {
+    color: '#004a8b',
+    flex: 1, 
+    flexDirection: 'column',
+    fontWeight: 'bold',
+    fontFamily: 'ChalkboardSE-Light'
+  },
   rowText: {
-    color: '#004a8b'
+    color: '#004a8b',
+    flex: 1, 
+    flexDirection: 'column'
+  },
+  taskRowText: {
+    color: '#555',
+    flex: 1, 
+    flexDirection: 'column',
+    paddingLeft: 5,
+    fontFamily: 'ChalkboardSE-Light'
+  },
+  activeCircle: {
+    width: 12,
+    height: 12,
+    borderRadius: 100/2,
+    backgroundColor: 'green',
+    flexDirection: 'column',
+  },
+  inactiveCircle: {
+    width: 12,
+    height: 12,
+    borderRadius: 100/2,
+    backgroundColor: 'grey',
+    flexDirection: 'column',
   }
 });
 

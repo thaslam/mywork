@@ -22,6 +22,14 @@ class MyWork extends Component {
     this.state = {loggedIn: false, project: null};
 	}
   render() {
+    if (this.state.loggedIn) {
+      return (<Tasks />);
+    }
+    return (
+      <Login onLogin={this.onLogin.bind(this)} />
+    );
+  }
+/* return all projects
     if (this.state.project != null) {
       return (<Tasks />);
     }
@@ -32,6 +40,8 @@ class MyWork extends Component {
       <Login onLogin={this.onLogin.bind(this)} />
     );
   }
+*/
+
   onLogin() {
     this.setState({loggedIn: true});
   }

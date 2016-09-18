@@ -19,18 +19,26 @@ namespace MyWork.Services.Controllers
     public async Task<string> Get()
     {
         if (MyWorkService == null) return null;
-        
-        return await MyWorkService.GetProjects();
+  
+        return await MyWorkService.GetTasks();
     } 
 
     [HttpGet("{projectName}")]
     public async Task<string> Get(string projectName)
     {
         if (MyWorkService == null) return null;
-        if (string.IsNullOrWhiteSpace(projectName)) return null;
-
+        
         return await MyWorkService.GetTasks(projectName);
     }
+
+    [Route("projects")]
+    [HttpGet]
+    public async Task<string> GetProject()
+    {
+        if (MyWorkService == null) return null;
+        
+        return await MyWorkService.GetProjects();
+    } 
   }
 
 }
