@@ -38,6 +38,10 @@ class Login extends Component {
 	}
 	onLoginPressed() {
     Data.getProjects();
+
+		// notify any subscribers to onLogin
+		if (this.props.onLogin)
+			this.props.onLogin();
   }
 };
 

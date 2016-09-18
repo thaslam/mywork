@@ -13,14 +13,25 @@ import {
 } from 'react-native';
 
 import Login from './Login';
+import Projects from './Projects';
 
 //var Login = require('./Login');
 
 class MyWork extends Component {
+  constructor(props) {
+		super(props);
+    this.state = {loggedIn: false};
+	}
   render() {
+    if (this.state.loggedIn) {
+      return (<Projects />);
+    }
     return (
-      <Login />
+      <Login onLogin={this.onLogin.bind(this)} />
     );
+  }
+  onLogin() {
+    this.setState({loggedIn: true});
   }
 }
 

@@ -18,8 +18,10 @@ class Projects extends Component {
   render() {
     return (
       <View style={Styles.container}>
-        <Text style={Styles.header}>Your Projects</Text>
+        <Text style={Styles.header}>My Projects</Text>
       </View>
     );
   }
 };
+
+export default Projects;
