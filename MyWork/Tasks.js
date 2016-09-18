@@ -8,12 +8,14 @@ import {
   Text,
   View,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  PanResponder
 } from 'react-native';
+
 import Styles from './Styles';
 import Data from './DataService';
 
-class Projects extends Component {
+class Tasks extends Component {
   constructor(props) {
     super(props);
 
@@ -21,18 +23,19 @@ class Projects extends Component {
     this.state = {dataSource: ds.cloneWithRows([])};
   }
   componentDidMount() {
-    this.fetchProjects();
+    this.fetchTasks();
   }
-  fetchProjects() {
-    Data.getProjects((data) => {
-        this.setState({dataSource: this.state.dataSource.cloneWithRows(data.value)});
+  fetchTasks() {
+    // TODO: Wire to selected project
+    Data.getTasks("Agency Dashboard", (data) => {
+        this.setState({dataSource: this.state.dataSource.cloneWithRows(data.workItems)});
     });
   }
   render() {
     return (
       <View style={Styles.container}>
         <Image style={Styles.logo} resizeMode={Image.resizeMode.contain} source={require('image!selectivelogo')} />
-        <Text style={Styles.header}>My Projects</Text>
+        <Text style={Styles.header}>My Tasks</Text>
         <ListView style={Styles.projectList}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)} 
@@ -43,18 +46,14 @@ class Projects extends Component {
   }
   renderRow(rowData, sectionID, rowID) {
     return (
-      <TouchableHighlight underlayColor='#dbeaf9' onPress={this.pressRow.bind(this)}>
-        <View>
-          <View style={Styles.row}>
-            <Text style={Styles.rowText}>{rowData.name}</Text>
-          </View>
+      <View>
+        <View style={Styles.row}>
+          <Text style={Styles.rowText}>{rowData.id}</Text>
         </View>
-      </TouchableHighlight>
+      </View>
     );
   }
   pressRow(rowData, sectionID, rowID) {
-    if (this.props.onProjectSelected)
-			this.props.onProjectSelected(rowData);
     /*
     this._pressData[rowID] = !this._pressData[rowID];
     this.setState({dataSource: this.state.dataSource.cloneWithRows(
@@ -64,4 +63,4 @@ class Projects extends Component {
   }
 };
 
-export default Projects;
+export default Tasks;

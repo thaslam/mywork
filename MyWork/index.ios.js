@@ -14,17 +14,19 @@ import {
 
 import Login from './Login';
 import Projects from './Projects';
-
-//var Login = require('./Login');
+import Tasks from './Tasks';
 
 class MyWork extends Component {
   constructor(props) {
 		super(props);
-    this.state = {loggedIn: false};
+    this.state = {loggedIn: false, project: null};
 	}
   render() {
+    if (this.state.project != null) {
+      return (<Tasks />);
+    }
     if (this.state.loggedIn) {
-      return (<Projects />);
+      return (<Projects onProjectSelected={this.onProjectSelected.bind(this)} />);
     }
     return (
       <Login onLogin={this.onLogin.bind(this)} />
@@ -32,6 +34,9 @@ class MyWork extends Component {
   }
   onLogin() {
     this.setState({loggedIn: true});
+  }
+  onProjectSelected(projectName) {
+    this.setState({project: projectName});
   }
 }
 

@@ -26,7 +26,7 @@ class Login extends Component {
 	render() {
 		return (
 			<View style={Styles.container}>
-				<Image style={Styles.logo} source={require('image!selectivelogo')} />
+				<Image style={Styles.logo} resizeMode={Image.resizeMode.contain} source={require('image!selectivelogo')} />
 				<Text style={Styles.header}>Your Work</Text>
 				<TextInput style={Styles.input} placeholder="Username" />
 				<TextInput style={Styles.input} placeholder="Token Password" />
@@ -37,8 +37,6 @@ class Login extends Component {
 		);
 	}
 	onLoginPressed() {
-    Data.getProjects();
-
 		// notify any subscribers to onLogin
 		if (this.props.onLogin)
 			this.props.onLogin();
