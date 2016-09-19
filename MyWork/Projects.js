@@ -11,7 +11,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import Styles from './Styles';
-import Data from './DataService';
+import Data from './VstsDataService';
 
 class Projects extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class Projects extends Component {
     this.fetchProjects();
   }
   fetchProjects() {
-    Data.getProjects((data) => {
+    Data.getProjects((data, err) => {
         this.setState({dataSource: this.state.dataSource.cloneWithRows(data.value)});
     });
   }

@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 
 import Styles from './Styles';
-import Data from './DataService';
+import CredentialStore from './CredentialStore';
+import VstsDataService from './VstsDataService';
 
 class Tasks extends Component {
   constructor(props) {
@@ -40,9 +41,12 @@ class Tasks extends Component {
   componentDidMount() {
     this.fetchTasks();
   }
-  fetchTasks() {
-    // TODO: Wire to selected project
-    Data.getTasks("", (data) => {
+  async fetchTasks() {
+    var creds = await CredentialStore.getCreds();
+		if (!creds) return;
+		var data = new VstsDataService(creds);
+
+    data.getTasks((data, err) => {
         this.setState({dataSource: 
           this.state.dataSource.cloneWithRowsAndSections(
             this.convertTaskArrayToMap(data.value))});
@@ -51,13 +55,16 @@ class Tasks extends Component {
   render() {
     return (
       <View style={Styles.container}>
-        <Image style={Styles.logo} resizeMode={Image.resizeMode.contain} source={require('image!selectivelogo')} />
-        <Text style={Styles.header}>My Tasks</Text>
-        <ListView style={Styles.taskList}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)} 
-          renderSectionHeader={this.renderSectionHeader.bind(this)}
-        />
+        <View style={Styles.headerContainer}>
+          <Text style={Styles.header}>My Tasks</Text>
+        </View>
+        <View style={Styles.bodyContainer}>
+          <ListView style={Styles.taskList}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)} 
+            renderSectionHeader={this.renderSectionHeader.bind(this)}
+          />
+        </View>
       </View>
     );
   }
