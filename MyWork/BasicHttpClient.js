@@ -52,6 +52,26 @@ class BasicHttpClient {
       callback(results);
     });
   }
+  patchHttpRequest(url, content, callback) {
+    var headers = this.createHttpHeadersWithBasicAuth();
+    headers['Content-Type'] = 'application/json-patch+json';
+    fetch(url, 
+    {
+      headers: headers,
+      method: "PATCH",
+      body: content,
+    })
+    .then((response) => {
+      if (response.status !== 200) {
+        console.log('Looks like there was a problem. Status Code: ' +  response.status);  
+        callback(null, response.status);
+      }
+      return response.json();})
+    .then((results) => {
+      console.log(url + "   " + results);
+      callback(results);
+    });
+  }
 }
 
 export default BasicHttpClient;

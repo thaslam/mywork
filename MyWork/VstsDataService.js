@@ -32,6 +32,17 @@ class VstsDataService {
       "https://" + this.creds.domain + ".visualstudio.com/_apis/projects?api-version=1.0",
       callback);
   }
+  closeTask(id, callback) {
+    var client = new BasicHttpClient(this.creds.username, this.creds.password);
+    client.patchHttpRequest("https://" + this.creds.domain + ".visualstudio.com/DefaultCollection/_apis/wit/workitems/" + id + "?api-version=1.0",
+      JSON.stringify([
+        {
+          "op": "replace",
+          "path": "/fields/System.State",
+          "value": "Closed"
+        }
+      ]), callback);
+  }
   getTasks(callback) {
     var client = new BasicHttpClient(this.creds.username, this.creds.password);
     var content = 

@@ -12,6 +12,7 @@ import {
   PanResponder
 } from 'react-native';
 
+import Swipeout from 'react-native-swipeout';
 import Styles from './Styles';
 import CredentialStore from './CredentialStore';
 import VstsDataService from './VstsDataService';
@@ -21,9 +22,9 @@ class Tasks extends Component {
     super(props);
 
     var ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 != r2,
+      rowHasChanged: (r1, r2) => true,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2});
-    this.state = {dataSource: ds.cloneWithRowsAndSections([])};
+    this.state = {tasks: null, activeTask: null, dataSource: ds.cloneWithRowsAndSections([])};
   }
   convertTaskArrayToMap(tasks) {
     var taskMap = {}; // Create the blank map
@@ -32,10 +33,8 @@ class Tasks extends Component {
         // Create an entry in the map for the category if it hasn't yet been created
         taskMap[task.fields["System.AreaPath"]] = [];
       }
-      
       taskMap[task.fields["System.AreaPath"]].push(task);
-    });
-    
+    });    
     return taskMap;
   }
   componentDidMount() {
@@ -45,11 +44,9 @@ class Tasks extends Component {
     var creds = await CredentialStore.getCreds();
 		if (!creds) return;
 		var data = new VstsDataService(creds);
-
-    data.getTasks((data, err) => {
-        this.setState({dataSource: 
-          this.state.dataSource.cloneWithRowsAndSections(
-            this.convertTaskArrayToMap(data.value))});
+    data.getTasks((results, err) => {
+      this.setState({tasks: this.convertTaskArrayToMap(results.value)});
+      this.updateDataSource(this.state.tasks);
     });
   }
   render() {
@@ -78,18 +75,23 @@ class Tasks extends Component {
     );
   }
   renderRow(rowData, sectionID, rowID) {
-
+    var buttons = [ { text: 'Done', backgroundColor: '#57AA7D', onPress: this.rowClosePress.bind(this) } ]
     var circle = <View style={Styles.activeCircle} />
     if (rowData.fields["System.State"] != "Active")
       circle = <View style={Styles.inactiveCircle} />
       
     return (
-      <View>
+      <Swipeout 
+        right={buttons}
+        close={!rowData.active} 
+        rowID={rowID} 
+        sectionID={sectionID} 
+        onOpen={(sectionID, rowID) => this.handleSwipeout(sectionID, rowID) }>
         <View style={Styles.taskRow}>
           {circle}
           <Text style={Styles.taskRowText}>{rowData.fields["System.Title"]}}</Text>
         </View>
-      </View>
+      </Swipeout>
     );
   }
   pressRow(rowData, sectionID, rowID) {
@@ -99,6 +101,31 @@ class Tasks extends Component {
       this._genRows(this._pressData)
     )});
     */
+  }
+  async rowClosePress() {
+    var creds = await CredentialStore.getCreds();
+		if (!creds) return;
+		var data = new VstsDataService(creds);
+    data.closeTask(this.state.activeTask.id, (result, err) => {
+      if (!err) {
+        this.fetchTasks();
+      }
+    })
+  }
+  handleSwipeout(sectionID, rowID) {
+    for (var i = 0; i < this.state.tasks[sectionID].length; i++) {
+      if (i != rowID) this.state.tasks[sectionID][i].active = false;
+      else {
+        this.state.tasks[sectionID][i].active = true;
+        this.state.activeTask = this.state.tasks[sectionID][i];
+      }
+    }
+    this.updateDataSource(this.state.tasks);
+  }
+  updateDataSource(data) {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRowsAndSections(data),
+    });
   }
 };
 

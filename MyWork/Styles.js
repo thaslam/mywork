@@ -14,6 +14,7 @@ var Styles = StyleSheet.create({
 	},
 	logo: {
     width: 120,
+    height: 50,
     marginTop: 50,
     alignSelf: 'center'
 	},
@@ -26,22 +27,20 @@ var Styles = StyleSheet.create({
     paddingBottom: 4
 	},
   headerContainer: {
-    paddingTop: 0,
     alignSelf: 'stretch',
     paddingTop: 10,
   },
   bodyContainer: {
-    paddingTop: 0,
     flex: 1,
     alignSelf: 'stretch',
-    borderBottomColor: '#F5FCFF',
-    borderBottomWidth: StyleSheet.hairlineWidth,
     paddingTop: 10,
     backgroundColor: '#F5FCFF'
   },
 	input: {
 		height: 50,
-		marginTop: 10,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    marginTop: 10,
 		padding: 4,
     marginLeft: 10,
     marginRight: 10,
@@ -63,7 +62,6 @@ var Styles = StyleSheet.create({
 		fontSize: 22,
 		color: '#FFF',
 		alignSelf: 'center',
-    //fontFamily: 'Thonburi'
 	},
   projectList: {
     alignSelf: 'stretch',
@@ -79,7 +77,8 @@ var Styles = StyleSheet.create({
   },
   taskRow: {
     padding: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: '#F5FCFF'
   },
   taskSection: {
     flexDirection: 'row',
@@ -100,14 +99,15 @@ var Styles = StyleSheet.create({
     color: '#004a8b',
     flex: 1, 
     flexDirection: 'column',
-    //fontFamily: 'Thonburi'
   },
   taskRowText: {
     color: '#555',
     flex: 1, 
     flexDirection: 'column',
-    //fontFamily: 'Thonburi',
     paddingLeft: 5,
+  },
+  taskRowDoneButton: {
+    backgroundColor: '#57AA7D'
   },
   activeCircle: {
     width: 12,
