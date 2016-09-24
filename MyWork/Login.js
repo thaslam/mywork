@@ -8,7 +8,8 @@ import {
   View,
   Image,
   TextInput,
-  TouchableHighlight
+  TouchableHighlight,
+	ActivityIndicator
 } from 'react-native';
 import Styles from './Styles';
 import VstsDataService from './VstsDataService';
@@ -17,7 +18,7 @@ import CredentialStore from './CredentialStore';
 class Login extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { domain: '', username: '', password: '' };
+		this.state = { domain: '', username: '', password: '', showActivity: false };
 	}
 
 	async componentDidMount() {
@@ -43,18 +44,23 @@ class Login extends Component {
 					<TouchableHighlight onPress={this.onLoginPressed.bind(this)} style={Styles.button}>
 						<Text style={Styles.buttonText}>Log In</Text>
 					</TouchableHighlight>
+					<ActivityIndicator animating={this.state.showActivity} size="large" style={Styles.loader} />
 				</View>
 		</View>
 		);
 	}
 	onLoginPressed() {
+		if (this.state.showActivity) return;
+		
 		var creds = {
 			domain: this.state.domain, 
 			username: this.state.username, 
 			password: this.state.password 
 		};
+		this.setState({showActivity: true});
 		var data = new VstsDataService(creds);
 		data.checkAccess((data, err) => {
+			this.setState({showActivity: false});
 			// notify any subscribers to onLogin
 			if (!err) {
 				// store the values captured so they don't need to be keyed in again'

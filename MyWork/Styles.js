@@ -68,6 +68,7 @@ var Styles = StyleSheet.create({
     paddingTop: 20
   },
   taskList: {
+    flex: 1,
     alignSelf: 'stretch',
     paddingTop: 0
   },
@@ -124,6 +125,8 @@ var Styles = StyleSheet.create({
     backgroundColor: '#bbb',
     flexDirection: 'column',
     marginTop: 5
+  },
+  loader: {
   }
 });
 

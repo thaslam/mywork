@@ -9,7 +9,8 @@ import {
   View,
   ListView,
   TouchableHighlight,
-  PanResponder
+  PanResponder,
+  ActivityIndicator
 } from 'react-native';
 
 import Swipeout from 'react-native-swipeout';
@@ -24,7 +25,7 @@ class Tasks extends Component {
     var ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => true,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2});
-    this.state = {tasks: null, activeTask: null, dataSource: ds.cloneWithRowsAndSections([])};
+    this.state = {tasks: null, activeTask: null, dataSource: ds.cloneWithRowsAndSections([]), showActivity: false};
   }
   convertTaskArrayToMap(tasks) {
     var taskMap = {}; // Create the blank map
@@ -61,6 +62,7 @@ class Tasks extends Component {
             renderRow={this.renderRow.bind(this)} 
             renderSectionHeader={this.renderSectionHeader.bind(this)}
           />
+          <ActivityIndicator animating={this.state.showActivity} size="large" style={Styles.loader} />
         </View>
       </View>
     );
@@ -95,18 +97,17 @@ class Tasks extends Component {
     );
   }
   pressRow(rowData, sectionID, rowID) {
-    /*
-    this._pressData[rowID] = !this._pressData[rowID];
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(
-      this._genRows(this._pressData)
-    )});
-    */
+    // do nothing for now
   }
   async rowClosePress() {
+    if (this.state.showActivity) return;
+
+    this.setState({showActivity: true});
     var creds = await CredentialStore.getCreds();
 		if (!creds) return;
 		var data = new VstsDataService(creds);
     data.closeTask(this.state.activeTask.id, (result, err) => {
+      this.setState({showActivity: false});
       if (!err) {
         this.fetchTasks();
       }
