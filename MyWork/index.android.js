@@ -12,22 +12,29 @@ import {
   View
 } from 'react-native';
 
+import Login from './Login';
+import Projects from './Projects';
+import Tasks from './Tasks';
+
 class MyWork extends Component {
+  constructor(props) {
+		super(props);
+    this.state = {loggedIn: false, project: null};
+	}
   render() {
+    if (this.state.loggedIn) {
+      return (<Tasks />);
+    }
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Login onLogin={this.onLogin.bind(this)} />
     );
+  }
+
+  onLogin() {
+    this.setState({loggedIn: true});
+  }
+  onProjectSelected(projectName) {
+    this.setState({project: projectName});
   }
 }
 
