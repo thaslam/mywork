@@ -10,13 +10,13 @@ import {
   ListView,
   TouchableHighlight
 } from 'react-native';
-import Styles from './Styles';
-import Data from './VstsDataService';
+import BaseStyles from '../styles/BaseStyles';
+import Data from '../data/VstsDataService';
 
 class Projects extends Component {
   constructor(props) {
     super(props);
-
+    styles = Object.assign(styles, BaseStyles);
     var ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 != row2});
     this.state = {dataSource: ds.cloneWithRows([])};
   }
@@ -30,9 +30,9 @@ class Projects extends Component {
   }
   render() {
     return (
-      <View style={Styles.container}>
-        <Image style={Styles.logo} resizeMode={Image.resizeMode.contain} source={require('image!selectivelogo')} />
-        <Text style={Styles.header}>My Projects</Text>
+      <View style={styles.container}>
+        <Image style={styles.logo} resizeMode={Image.resizeMode.contain} source={require('image!selectivelogo')} />
+        <Text style={styles.header}>My Projects</Text>
         <ListView style={Styles.projectList}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)} 
@@ -45,8 +45,8 @@ class Projects extends Component {
     return (
       <TouchableHighlight underlayColor='#dbeaf9' onPress={this.pressRow.bind(this)}>
         <View>
-          <View style={Styles.row}>
-            <Text style={Styles.rowText}>{rowData.name}</Text>
+          <View style={styles.row}>
+            <Text style={styles.rowText}>{rowData.name}</Text>
           </View>
         </View>
       </TouchableHighlight>
@@ -55,13 +55,23 @@ class Projects extends Component {
   pressRow(rowData, sectionID, rowID) {
     if (this.props.onProjectSelected)
 			this.props.onProjectSelected(rowData);
-    /*
-    this._pressData[rowID] = !this._pressData[rowID];
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(
-      this._genRows(this._pressData)
-    )});
-    */
   }
 };
+
+var styles = StyleSheet.create({
+  projectList: {
+    alignSelf: 'stretch',
+    paddingTop: 20
+  },
+  row: {
+    padding: 10,
+    alignSelf: 'center',
+  },
+  rowText: {
+    color: '#004a8b',
+    flex: 1, 
+    flexDirection: 'column',
+  }
+});
 
 export default Projects;

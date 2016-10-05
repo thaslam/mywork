@@ -7,14 +7,13 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Text,
   View
 } from 'react-native';
 
-import Login from './Login';
-import Projects from './Projects';
-import Tasks from './Tasks';
+import Login from './components/Login';
+import Projects from './components/Projects';
+import Tasks from './components/Tasks';
 
 class MyWork extends Component {
   constructor(props) {
@@ -29,32 +28,9 @@ class MyWork extends Component {
       <Login onLogin={this.onLogin.bind(this)} />
     );
   }
-
   onLogin() {
     this.setState({loggedIn: true});
   }
-  onProjectSelected(projectName) {
-    this.setState({project: projectName});
-  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('MyWork', () => MyWork);

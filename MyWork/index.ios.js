@@ -7,14 +7,13 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
   Text,
   View
 } from 'react-native';
 
-import Login from './Login';
-import Projects from './Projects';
-import Tasks from './Tasks';
+import Login from './components/Login';
+import Projects from './components/Projects';
+import Tasks from './components/Tasks';
 
 class MyWork extends Component {
   constructor(props) {
@@ -29,59 +28,9 @@ class MyWork extends Component {
       <Login onLogin={this.onLogin.bind(this)} />
     );
   }
-/* return all projects
-    if (this.state.project != null) {
-      return (<Tasks />);
-    }
-    if (this.state.loggedIn) {
-      return (<Projects onProjectSelected={this.onProjectSelected.bind(this)} />);
-    }
-    return (
-      <Login onLogin={this.onLogin.bind(this)} />
-    );
-  }
-*/
-
   onLogin() {
     this.setState({loggedIn: true});
   }
-  onProjectSelected(projectName) {
-    this.setState({project: projectName});
-  }
 }
-
-/*
-<View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    */
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('MyWork', () => MyWork);
